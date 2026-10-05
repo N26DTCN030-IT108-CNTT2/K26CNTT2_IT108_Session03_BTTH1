@@ -1,0 +1,48 @@
+# Bài Tập Thực Hành 1: Quản lý lưu trữ và đường dẫn tệp trong Windows
+## Phần 1: Phân tích các sai lầm của Nam
+
+- **Vị trí lưu trữ sai:** Nam lưu file bài tập tại C:\Windows\System32\. Đây là thư mục lõi của HĐH, nơi chứa các file hệ thống quan trọng. Việc lưu dữ liệu cá nhân ở đây dễ gây lỗi hệ thống nếu vô tình sửa/xóa file, yêu cầu quyền quản trị (Admin) rườm rà, và rủi ro mất hoàn toàn dữ liệu nếu phải cài lại hệ điều hành. Nam nên lưu ở một phân vùng khác.
+- **Cách đặt tên file vi phạm quy tắc:** Các thư mục và file `Bai Tap Cua Nam`, `Session 01`, `bai tap 1.py` chứa khoảng trắng và viết hoa lộn xộn. Trong lập trình, khoảng trắng trong đường dẫn rất dễ gây lỗi khi biên dịch hoặc thao tác trên giao diện dòng lệnh (Terminal/Command Prompt) do hệ thống hiểu nhầm khoảng trắng là dấu phân cách lệnh.
+- **Hiểu lầm về đơn vị đo tốc độ mạng:** Nam nhầm lẫn giữa **Mbps** (Megabits per second - đơn vị quảng cáo của nhà mạng) và **MB/s** (Megabytes per second - đơn vị hiển thị khi tải file). Theo chuẩn, 1 Byte = 8 bits. Do đó, gói mạng 100 Mbps sẽ có tốc độ tải xuống thực tế tối đa là: 100 / 8 = 12.5 MB/s. Tốc độ này là hoàn toàn chính xác.
+- **Nguyên nhân SSD 256 GB hiển thị dung lượng thấp hơn:** Do sự khác biệt trong hệ cơ số tính toán giữa phần cứng và hệ điều hành:
+  - **Nhà sản xuất:** Tính theo hệ thập phân (cơ số 10) với 1 KB = 1,000 Bytes, 1 GB = 1,000^3 Bytes. Ổ 256 GB có đúng 256,000,000,000 Bytes.
+  - **Windows:** Tính theo hệ nhị phân (cơ số 2) với 1 KiB = 1,024 Bytes, 1 GiB = 1,024^3 Bytes. 
+  - Khi Windows đọc 256,000,000,000 Bytes, nó chia cho 1024^3, kết quả hiển thị thực tế chỉ khoảng **238.4 GB**. Phần dung lượng hao hụt nhỏ còn lại là do bị chiếm dụng bởi bảng phân vùng và định dạng hệ thống tập tin (File System).
+
+---
+
+## Phần 2: Thiết kế lại cây thư mục học tập
+
+Áp dụng phương pháp quản lý 4 trụ cột (P.A.R.A) kết hợp với cấu trúc phân tầng 3 cấp. Toàn bộ tên file và thư mục sử dụng chuẩn **kebab-case** (viết thường, không dấu, ngăn cách bằng dấu gạch ngang).
+
+**Cấu trúc 4 trụ cột (Level 1):**
+1. **projects:** Các dự án, bài tập ngắn hạn đang thực hiện.
+2. **areas:** Các môn học, lĩnh vực kiến thức dài hạn.
+3. **resources:** Tài liệu tham khảo, phần mềm, e-books.
+4. **archives:** Lưu trữ các môn học, dữ liệu cũ đã hoàn thành.
+
+**Cây thư mục minh họa (Chuẩn 3 cấp trên ổ D):**
+
+```text
+D:\
+└── hoc-tap\
+    ├── projects\
+    │   ├── it108-nhap-mon-cntt\
+    │   │   ├── session-01\
+    │   │   │   └── bai-tap-1.py
+    │   │   └── session-02\
+    │   └── dsa-cau-truc-du-lieu\
+    │
+    ├── areas\
+    │   ├── lap-trinh-python\
+    │   │   └── ly-thuyet-co-ban\
+    │   └── tieng-anh-chuyen-nganh\
+    │
+    ├── resources\
+    │   ├── softwares\
+    │   │   └── python-installer\
+    │   └── e-books\
+    │
+    └── archives\
+        └── hoc-ky-1-2025\
+            └── tin-hoc-van-phong\
